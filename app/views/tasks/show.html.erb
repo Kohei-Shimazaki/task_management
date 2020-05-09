@@ -1,8 +1,8 @@
-<h1>詳細画面</h1>
+<h1><%= t('task.title.show') %></h1>
 <div class="task_name">
-  タスク名：<%= @task.name %>
+  <%= t('task.column.name') %>： <%= @task.name %>
 </div>
 <div class="task_name">
-  内容：<%= @task.content %>
+  <%= t('task.column.content') %>： <%= @task.content %>
 </div>
-<%= link_to "戻る", tasks_path %>
+<%= link_to t('task.link.index'), tasks_path %>

@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
+    @tasks = Task.all.order(created_at: "DESC")
   end
   def new
     @task = Task.new
@@ -34,6 +34,7 @@ class TasksController < ApplicationController
     flash[:notice] = "タスクを削除しました！"
     redirect_to tasks_path
   end
+
   private
   def task_params
     params.require(:task).permit(:name, :content,)

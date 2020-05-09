@@ -1,7 +1,16 @@
 <%= form_with(model: @task, local: true) do |form| %>
-  <%= form.label :name %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% @task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form.label :name, t('task.column.name') %>
   <%= form.text_field :name %>
-  <%= form.label :content %>
+  <%= form.label :content, t('task.column.content') %>
   <%= form.text_area :content %>
-  <%= form.submit "登録" %>
+  <%= form.submit t('task.submit') %>
 <% end %>
