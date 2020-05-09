@@ -13,8 +13,8 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '必要項目を入力して、createボタンを押した場合' do
       it 'データが保存される' do
         visit new_task_path
-        fill_in 'Name', with: 'task_name'
-        fill_in 'Content', with: 'task_content'
+        fill_in 'タスク名', with: 'task_name'
+        fill_in '内容', with: 'task_content'
         click_on '登録'
         expect(page).to have_content 'task_' && 'name' && 'content'
       end
@@ -26,7 +26,7 @@ RSpec.describe 'タスク管理機能', type: :system do
          task = FactoryBot.create(:task, name: 'task', content: 'content')
          visit tasks_path
          click_on '詳細'
-         expect(page).to have_content '詳細画面' && 'task' && 'content'
+         expect(page).to have_content 'タスク詳細' && 'task' && 'content'
        end
      end
   end

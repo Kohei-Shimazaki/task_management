@@ -1,7 +1,7 @@
 <%= form_with(model: @task, local: true) do |form| %>
-  <%= form.label :name %>
+  <%= form.label :name, t('task.column.name') %>
   <%= form.text_field :name %>
-  <%= form.label :content %>
+  <%= form.label :content, t('task.column.content') %>
   <%= form.text_area :content %>
-  <%= form.submit "登録" %>
+  <%= form.submit t('task.submit') %>
 <% end %>
