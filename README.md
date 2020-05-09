@@ -21,5 +21,6 @@ Things you may want to cover:
 
 * Deployment instructions
   Herokuにデプロイして下さい
-    ・masterブランチで、"git push heroku master"と入力
+    ・masterブランチにマージすると自動でデプロイ
+    ・手動の場合、masterブランチで、"git push heroku master"と入力
 * ...
