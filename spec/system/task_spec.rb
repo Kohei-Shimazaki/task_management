@@ -26,9 +26,11 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
   describe 'タスク登録画面' do
+    before do
+      visit new_task_path
+    end
     context '必要項目を入力して、createボタンを押した場合' do
-      it 'データが保存される' do
-        visit new_task_path
+      it 'データが保存される,バリデーションが通る' do
         fill_in 'タスク名', with: 'task_name'
         fill_in '内容', with: 'task_content'
         click_on '登録'
