@@ -1,8 +1,8 @@
 <h1><%= t('task.title.show') %></h1>
 <div class="task_name">
-  <%= t('task.column.name') %>：<%= @task.name %>
+  <%= t('task.column.name') %>： <%= @task.name %>
 </div>
 <div class="task_name">
-  <%= t('task.column.content') %>：<%= @task.content %>
+  <%= t('task.column.content') %>： <%= @task.content %>
 </div>
 <%= link_to t('task.link.index'), tasks_path %>
