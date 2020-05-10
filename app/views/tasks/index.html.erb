@@ -3,7 +3,9 @@
 <%= form_with(scope: :search, url: tasks_path, method: :get, local: true) do |form| %>
   <p>
     <%= t('task.column.name') %>
-    <%= form.text_field :word %>
+    <%= form.text_field :name %>
+    <%= t('task.column.status') %>
+    <%= form.select :status, [["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]] %>
     <%= form.submit t('task.search') %>
   </p>
 

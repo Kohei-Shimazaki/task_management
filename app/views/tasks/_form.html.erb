@@ -22,7 +22,7 @@
   </div>
   <div class="task_status">
     <%= form.label :status, t('task.column.status') %><br>
-    <%= form.select :status, [["未着手", 0], ["着手中", 1], ["完了", 2]] %>
+    <%= form.select :status, [["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]] %>
   </div>
   <%= form.submit t('task.submit') %>
 <% end %>
