@@ -1,6 +1,7 @@
 ja:
   task:
     submit: 登録
+    search: 検索
     title:
       index: タスク一覧
       show: タスク詳細
