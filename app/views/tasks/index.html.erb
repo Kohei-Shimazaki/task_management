@@ -5,7 +5,12 @@
     <%= t('task.column.name') %>
     <%= form.text_field :name %>
     <%= t('task.column.status') %>
-    <%= form.select :status, [["--", nil], ["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]] %>
+    <%= form.select :status, [
+                              ["--", nil],
+                              [t('task.status.not_started'), t('task.status.not_started')],
+                              [t('task.status.in_progress'), t('task.status.in_progress')],
+                              [t('task.status.completed'), t('task.status.completed')]
+                              ] %>
     <%= form.submit t('task.search') %>
   </p>
 
