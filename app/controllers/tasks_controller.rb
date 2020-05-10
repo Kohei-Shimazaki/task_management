@@ -5,11 +5,11 @@ class TasksController < ApplicationController
       if params[:search][:name].present?
         words = params[:search][:name].split
         words.each do |word|
-          tasks = tasks.where("name LIKE ?", "%#{ word }%")
+          tasks = tasks.search_task_name(word)
         end
       end
       if params[:search][:status].present?
-        tasks = tasks.where(status: params[:search][:status])
+        tasks = tasks.search_task_status(params[:search][:status])
       end
     end
     if params[:sort_expired]
