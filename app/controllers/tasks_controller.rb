@@ -1,12 +1,16 @@
 class TasksController < ApplicationController
   def index
     tasks = Task.all
-    if params[:search]
-      words = params[:search][:name].split
-      words.each do |word|
-        tasks = tasks.where("name LIKE ?", "%#{ word }%")
+    if params[:search].present?
+      if params[:search][:name].present?
+        words = params[:search][:name].split
+        words.each do |word|
+          tasks = tasks.where("name LIKE ?", "%#{ word }%")
+        end
       end
-      tasks = tasks.where(status: params[:search][:status])
+      if params[:search][:status].present?
+        tasks = tasks.where(status: params[:search][:status])
+      end
     end
     if params[:sort_expired]
       tasks = tasks.all.order(deadline: "DESC")
