@@ -28,5 +28,9 @@
                               [t('task.status.completed'), t('task.status.completed')]
                               ] %>
   </div>
+  <div class="task_priority">
+    <%= form.label :priority, t('task.column.priority') %><br>
+    <%= form.select :priority, Task.priorities.keys.map {|k| [k, k]} %>
+  </div>
   <%= form.submit t('task.submit') %>
 <% end %>

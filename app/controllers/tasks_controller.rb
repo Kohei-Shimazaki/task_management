@@ -57,6 +57,7 @@ class TasksController < ApplicationController
                                 :content,
                                 :deadline,
                                 :status,
+                                :priority,
                               )
   end
 end
