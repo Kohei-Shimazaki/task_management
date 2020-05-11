@@ -1,41 +1,43 @@
-<h1><%= t('task.title.index') %></h1>
-<%= link_to t('task.link.deadline'), tasks_path(sort_expired: "true") %>
-<%= form_with(scope: :search, url: tasks_path, method: :get, local: true) do |form| %>
-  <p>
-    <%= t('task.column.name') %>
-    <%= form.text_field :name %>
-    <%= t('task.column.status') %>
-    <%= form.select :status, [
-                              ["--", nil],
-                              [t('task.status.not_started'), t('task.status.not_started')],
-                              [t('task.status.in_progress'), t('task.status.in_progress')],
-                              [t('task.status.completed'), t('task.status.completed')]
-                              ] %>
-    <%= form.label :priority, t('task.column.priority') %>
-    <%= form.check_box :priority %>
-    <%= form.submit t('task.search') %>
-  </p>
-<% end %>
-<table>
-  <tr>
-    <th><%= t('task.column.name') %></th>
-    <th><%= t('task.column.content') %></th>
-    <th><%= t('task.column.deadline') %></th>
-    <th><%= t('task.column.status') %></th>
-    <th><%= t('task.column.priority') %></th>
-  </tr>
-  <% @tasks.each do |task| %>
-    <tr>
-      <td><%= task.name %></td>
-      <td><%= task.content %></td>
-      <td><%= task.deadline %></td>
-      <td><%= task.status %></td>
-      <td><%= task.priority %></td>
-      <td><%= link_to t('task.link.show'), task_path(task.id) %></td>
-      <td><%= link_to t('task.link.edit'), edit_task_path(task.id) %></td>
-      <td><%= link_to t('task.link.destroy'), task_path(task.id), method: :delete, data: {confirm: "本当に削除してよろしいですか？"} %></td>
-    </tr>
+<div class="container">
+  <h1><%= t('task.title.index') %></h1>
+  <%= link_to t('task.link.deadline'), tasks_path(sort_expired: "true") %>
+  <%= form_with(scope: :search, url: tasks_path, method: :get, local: true) do |form| %>
+    <p>
+      <%= form.label :name, t('task.column.name') %>
+      <%= form.text_field :name %>
+      <%= form.label :status, t('task.column.status') %>
+      <%= form.select :status, [
+                                ["--", nil],
+                                [t('task.status.not_started'), t('task.status.not_started')],
+                                [t('task.status.in_progress'), t('task.status.in_progress')],
+                                [t('task.status.completed'), t('task.status.completed')]
+                                ] %>
+      <%= form.label :priority, t('task.column.priority') %>
+      <%= form.check_box :priority %>
+      <%= form.submit t('task.search') %>
+    </p>
   <% end %>
-</table>
-<%= paginate @tasks %>
-<%= link_to t('task.link.new'), new_task_path %>
+  <table class="container">
+    <tr>
+      <th class="col-md-2"><%= t('task.column.name') %></th>
+      <th class="col-md-1"><%= t('task.column.status') %></th>
+      <th class="col-md-1"><%= t('task.column.priority') %></th>
+      <th class="col-md-1"><%= t('task.column.deadline') %></th>
+      <th class="col-md-5"><%= t('task.column.content') %></th>
+    </tr>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.name %></td>
+        <td><%= task.status %></td>
+        <td><%= task.priority %></td>
+        <td><%= task.deadline %></td>
+        <td><%= task.content %></td>
+        <td><%= link_to t('task.link.show'), task_path(task.id) %></td>
+        <td><%= link_to t('task.link.edit'), edit_task_path(task.id) %></td>
+        <td><%= link_to t('task.link.destroy'), task_path(task.id), method: :delete, data: {confirm: "本当に削除してよろしいですか？"} %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= paginate @tasks %><br>
+  <%= link_to t('task.link.new'), new_task_path %>
+</div>
