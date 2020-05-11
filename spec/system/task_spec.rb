@@ -27,11 +27,34 @@ RSpec.describe 'タスク管理機能', type: :system do
           expect(all('table tr')[1]).to have_content 'test_name'
           expect(all('table tr')[2]).to have_content 'new_name'
         end
+      end
+      context '検索をした場合' do
+        before do
+          new_task = FactoryBot.create(:task, name: 'new_name', content: 'new_content', status: '着手中', priority: 0)
+          second_task = FactoryBot.create(:task, name: 'new_second_name', content: 'new_second_content', status: '未着手', priority: 2)
+          visit tasks_path
+        end
+        it 'タスク名で検索できる' do
+          fill_in 'タスク名', with: 'new'
+          click_on '検索'
+          expect(all('table tr').count).to eq 3
+        end
+        it 'ステータスで検索できる' do
+          select '着手中', from: 'ステータス'
+          click_on '検索'
+          expect(all('table tr').count).to eq 2
+        end
         it '「優先順位」のチェックボックスを押して、「検索」を押すと、優先順位順にタスクが並ぶ' do
           check '優先順位'
           click_on '検索'
-          expect(all('table tr')[1]).to have_content 'test_name'
-          expect(all('table tr')[2]).to have_content 'new_name'
+          expect(all('table tr')[1]).to have_content 'new_second_name'
+          expect(all('table tr')[2]).to have_content 'test_name'
+        end
+        it 'タスク名検索、ステータス検索を同時に行える' do
+          fill_in 'タスク名', with: 'new'
+          select '未着手', from: 'ステータス'
+          click_on '検索'
+          expect(all('table tr').count).to eq 2
         end
       end
     end

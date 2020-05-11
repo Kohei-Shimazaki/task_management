@@ -19,8 +19,8 @@ RSpec.describe Task, type: :model do
   end
   context 'scopeメソッドで検索をした場合' do
     before do
-      Task.create(name: "task", content: "task_content", priority: 1)
-      Task.create(name: "sample", content: "sample_content", status: "着手中", priority: 2)
+      task1 = Task.create(name: "task", content: "task_content", priority: 1)
+      task2 = Task.create(name: "sample", content: "sample_content", status: "着手中", priority: 2)
     end
     it "scopeメソッドでタイトル検索ができる" do
       expect(Task.search_like_name('task').count).to eq 1
