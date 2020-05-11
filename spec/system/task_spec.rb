@@ -11,7 +11,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
       context '複数のタスクを作成した場合' do
         before do
-          new_task = FactoryBot.create(:task, name: 'new_name', content: 'new_content', deadline: Time.new(2020,1,1))
+          new_task = FactoryBot.create(:task, name: 'new_name', content: 'new_content', deadline: Time.new(2019,1,1))
           visit tasks_path
         end
         it '作成済みのタスクが表示される' do

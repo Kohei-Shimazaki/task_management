@@ -3,19 +3,19 @@ class TasksController < ApplicationController
 
   def index
     tasks = Task.all
+    if params[:sort_expired]
+      tasks = tasks.order_deadline
+    end
     if params[:search].present?
       if params[:search][:name].present?
         words = params[:search][:name].split
         words.each do |word|
-          tasks = tasks.search_task_name(word)
+          tasks = tasks.search_like_name(word)
         end
       end
       if params[:search][:status].present?
-        tasks = tasks.search_task_status(params[:search][:status])
+        tasks = tasks.search_status(params[:search][:status])
       end
-    end
-    if params[:sort_expired]
-      tasks = tasks.all.order(deadline: "DESC")
     end
     @tasks = tasks.order_created_at.page(params[:page]).per(PER)
   end
