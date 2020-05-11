@@ -11,6 +11,7 @@ gem 'faker'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'kaminari'
 
 group :development, :test do
   gem 'rspec-rails', '~> 4.0.0'

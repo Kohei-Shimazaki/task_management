@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  PER = 8
+
   def index
     tasks = Task.all
     if params[:search].present?
@@ -15,7 +17,7 @@ class TasksController < ApplicationController
     if params[:sort_expired]
       tasks = tasks.all.order(deadline: "DESC")
     end
-    @tasks = tasks.order_created_at
+    @tasks = tasks.order_created_at.page(params[:page]).per(PER)
   end
   def new
     @task = Task.new
