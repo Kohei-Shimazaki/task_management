@@ -8,9 +8,29 @@
       </ul>
     </div>
   <% end %>
-  <%= form.label :name, t('task.column.name') %>
-  <%= form.text_field :name %>
-  <%= form.label :content, t('task.column.content') %>
-  <%= form.text_area :content %>
+  <div class="field">
+    <%= form.label :name, t('task.column.name') %><br>
+    <%= form.text_field :name %>
+  </div>
+  <div class="field">
+    <%= form.label :content, t('task.column.content') %><br>
+    <%= form.text_area :content %>
+  </div>
+  <div class="field">
+    <%= form.label :deadline, t('task.column.deadline') %><br>
+    <%= form.datetime_field :deadline %>
+  </div>
+  <div class="field">
+    <%= form.label :status, t('task.column.status') %><br>
+    <%= form.select :status, [
+                              [t('task.status.not_started'), t('task.status.not_started')],
+                              [t('task.status.in_progress'), t('task.status.in_progress')],
+                              [t('task.status.completed'), t('task.status.completed')]
+                              ] %>
+  </div>
+  <div class="field">
+    <%= form.label :priority, t('task.column.priority') %><br>
+    <%= form.select :priority, Task.priorities.keys.map {|k| [k, k]} %>
+  </div>
   <%= form.submit t('task.submit') %>
 <% end %>

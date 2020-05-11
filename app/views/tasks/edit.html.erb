@@ -1,2 +1,5 @@
-<h1><%= t('task.title.edit') %></h1>
-<%= render "form" %>
+<div class="container">
+  <h1><%= t('task.title.edit') %></h1>
+  <%= render "form" %>
+  <%= link_to t('task.link.edit'), task_path(@task.id) %> | <%= link_to t('task.link.index'), tasks_path %>
+</div>
