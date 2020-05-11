@@ -10,10 +10,10 @@
     <%= t('task.column.priority') %>： <%= @task.priority %>
   </div>
   <div class="deadline">
-    <%= t('task.column.deadline') %>： <%= @task.deadline %>
+    <%= t('task.column.deadline') %>： <%= l @task.deadline, format: :long %>
   </div>
   <div class="task_content">
     <%= t('task.column.content') %>： <%= @task.content %>
   </div>
-  <%= link_to t('task.link.edit'), edit_task_path(@task.id) %> | <%= link_to t('task.link.index'), tasks_path %> 
+  <%= link_to t('task.link.edit'), edit_task_path(@task.id) %> | <%= link_to t('task.link.index'), tasks_path %>
 </div>
