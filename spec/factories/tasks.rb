@@ -4,6 +4,6 @@ FactoryBot.define do
     content { 'test_content' }
     deadline { Time.new(2020,5,10)}
     status { '未着手' }
-    priority { 0 }
+    priority { 1 }
   end
 end

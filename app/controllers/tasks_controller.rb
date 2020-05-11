@@ -16,6 +16,9 @@ class TasksController < ApplicationController
       if params[:search][:status].present?
         tasks = tasks.search_status(params[:search][:status])
       end
+      if params[:search][:priority].present?
+        tasks = tasks.order_priority
+      end
     end
     @tasks = tasks.order_created_at.page(params[:page]).per(PER)
   end

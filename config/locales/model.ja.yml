@@ -19,6 +19,7 @@ ja:
       show: 詳細
       edit: 編集
       destroy: 削除
+      deadline: 終了期限でソートする
     status:
       not_started: 未着手
       in_progress: 着手中

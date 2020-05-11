@@ -11,20 +11,27 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
       context '複数のタスクを作成した場合' do
         before do
-          new_task = FactoryBot.create(:task, name: 'new_name', content: 'new_content', deadline: Time.new(2019,1,1))
+          new_task = FactoryBot.create(:task, name: 'new_name', content: 'new_content', deadline: Time.new(2019,1,1), priority: 0)
           visit tasks_path
         end
         it '作成済みのタスクが表示される' do
           expect(page).to have_content 'test_name' && 'test_content' && 'new_name' && 'new_content'
         end
         it 'タスクが作成日時の降順に並んでいる' do
-          expect(all('table tr')[1]).to have_content 'new_name' && 'new_content'
-          expect(all('table tr')[2]).to have_content 'test_name' && 'test_content'
+          expect(all('table tr')[1]).to have_content 'new_name'
+          expect(all('table tr')[2]).to have_content 'test_name'
         end
         it '「終了期限でソートする」を押すと、終了期限の降順にタスクが並ぶ' do
           click_on '終了期限でソートする'
-          expect(all('table tr')[1]).to have_content 'test_name' && 'test_content'
-          expect(all('table tr')[2]).to have_content 'new_name' && 'new_content'
+          sleep(1)
+          expect(all('table tr')[1]).to have_content 'test_name'
+          expect(all('table tr')[2]).to have_content 'new_name'
+        end
+        it '「優先順位」のチェックボックスを押して、「検索」を押すと、優先順位順にタスクが並ぶ' do
+          check '優先順位'
+          click_on '検索'
+          expect(all('table tr')[1]).to have_content 'test_name'
+          expect(all('table tr')[2]).to have_content 'new_name'
         end
       end
     end
