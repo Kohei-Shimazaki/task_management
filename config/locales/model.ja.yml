@@ -24,6 +24,21 @@ ja:
       not_started: 未着手
       in_progress: 着手中
       completed: 完了
+  admin:
+    submit: 登録
+    title:
+      new: ユーザ作成
+      index: ユーザ管理
+      show: ユーザ詳細
+      edit: ユーザ編集
+    show:
+      number_of_tasks: タスク数
+    link:
+      new: ユーザ作成へ
+      index: ユーザ管理へ
+      show: ユーザ詳細へ
+      edit: ユーザ編集へ
+      destroy: ユーザ削除
   user:
     submit: 登録
     title:

@@ -1,0 +1,27 @@
+<h1><%= t('user.title.show') %></h1>
+<div class="field">
+  <%= t('user.column.name') %>: <%= @user.name %>
+</div>
+<div class="field">
+  <%= t('user.column.email') %>: <%= @user.email %>
+</div>
+<div class="field">
+  <table class="container">
+    <tr>
+      <th class="col-md-2"><%= t('task.column.name') %></th>
+      <th class="col-md-1"><%= t('task.column.status') %></th>
+      <th class="col-md-1"><%= t('task.column.priority') %></th>
+      <th class="col-md-2"><%= t('task.column.deadline') %></th>
+      <th class="col-md-5"><%= t('task.column.content') %></th>
+    </tr>
+    <% @user.tasks.each do |task| %>
+      <tr>
+        <td><%= task.name %></td>
+        <td><%= task.status %></td>
+        <td><%= task.priority %></td>
+        <td><%= l task.deadline, format: :long %></td>
+        <td><%= task.content %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
