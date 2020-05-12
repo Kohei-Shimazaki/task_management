@@ -15,10 +15,16 @@ class UsersController < ApplicationController
   end
   def show
     @user = User.find(params[:id])
+    prohibit_other_profiles
   end
 
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+  def prohibit_other_profiles
+    if current_user.id != @user.id
+      redirect_to tasks_path
+    end
   end
 end

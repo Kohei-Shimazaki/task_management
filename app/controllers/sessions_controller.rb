@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :authenticate_user
-  before_action :avoid_new_action, only: :new
+  before_action :prohibit_signup, only: :new
   def new
   end
   def create
@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
     redirect_to new_session_path
   end
   private
-  def avoid_new_action
+  def prohibit_signup
     if logged_in?
       redirect_to user_path(current_user.id)
     end
