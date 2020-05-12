@@ -24,6 +24,15 @@ ja:
       not_started: 未着手
       in_progress: 着手中
       completed: 完了
+  user:
+    submit: 登録
+    title:
+      new: ユーザ登録
+    column:
+      name: ユーザ名
+      email: Eメールアドレス
+      password: パスワード
+      password_confirmation: パスワード確認
   activerecord:
     models:
       task: タスク
