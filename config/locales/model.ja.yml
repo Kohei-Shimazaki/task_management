@@ -33,6 +33,10 @@ ja:
       email: Eメールアドレス
       password: パスワード
       password_confirmation: パスワード確認
+  session:
+    submit: ログイン
+    title:
+      new: ログイン
   activerecord:
     models:
       task: タスク
