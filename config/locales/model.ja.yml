@@ -28,6 +28,7 @@ ja:
     submit: 登録
     title:
       new: ユーザ登録
+      show: マイページ
     column:
       name: ユーザ名
       email: Eメールアドレス
@@ -37,6 +38,11 @@ ja:
     submit: ログイン
     title:
       new: ログイン
+    header:
+      signup: サインアップ
+      login: ログイン
+      profile: マイページ
+      logout: ログアウト
   activerecord:
     models:
       task: タスク
