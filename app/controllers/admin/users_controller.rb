@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :prohibit_user
+  before_action :prohibit_user_access
   def index
     @users = User.all.includes(:tasks)
   end
@@ -22,15 +22,6 @@ class Admin::UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
   end
-  def update
-    @user = User.find(params[:id])
-    if @user.update(user_params)
-      flash[:notice] = "ユーザ情報を更新しました！"
-      redirect_to tasks_path
-    else
-      render :edit
-    end
-  end
   def destroy
     @user = User.find(params[:id]).destroy
     flash[:notice] = "ユーザを削除しました！"
@@ -40,9 +31,10 @@ class Admin::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
-  def prohibit_user
+  def prohibit_user_access
     unless current_user.admin
       redirect_to tasks_path
     end
   end
+
 end

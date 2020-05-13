@@ -39,6 +39,8 @@ ja:
       show: ユーザ詳細へ
       edit: ユーザ編集へ
       destroy: ユーザ削除
+    has_right: 有
+    not_have_right: 無
   user:
     submit: 登録
     title:
@@ -49,6 +51,7 @@ ja:
       email: Eメールアドレス
       password: パスワード
       password_confirmation: パスワード確認
+      admin: 管理者権限
   session:
     submit: ログイン
     title:
@@ -66,3 +69,8 @@ ja:
       task:
         name: タスク名
         content: 内容
+      user:
+        name: ユーザ名
+        email: Eメール
+        password: パスワード
+        password_confirmation: パスワード確認

@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
   skip_before_action :authenticate_user
-  before_action :prohibit_signup, only: :new
   def new
   end
   def create
@@ -18,11 +17,5 @@ class SessionsController < ApplicationController
     session.delete(:user_id)
     flash[:notice] = "ログアウトしました！"
     redirect_to new_session_path
-  end
-  private
-  def prohibit_signup
-    if logged_in?
-      redirect_to user_path(current_user.id)
-    end
   end
 end
