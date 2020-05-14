@@ -1,0 +1,2 @@
+class LabelingsController < ApplicationController
+end
