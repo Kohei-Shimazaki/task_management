@@ -24,6 +24,43 @@ ja:
       not_started: 未着手
       in_progress: 着手中
       completed: 完了
+  admin:
+    submit: 登録
+    title:
+      new: ユーザ作成
+      index: ユーザ管理
+      show: ユーザ詳細
+      edit: ユーザ編集
+    show:
+      number_of_tasks: タスク数
+    link:
+      new: ユーザ作成へ
+      index: ユーザ管理へ
+      show: ユーザ詳細へ
+      edit: ユーザ編集へ
+      destroy: ユーザ削除
+    has_right: 有
+    not_have_right: 無
+  user:
+    submit: 登録
+    title:
+      new: ユーザ登録
+      show: マイページ
+    column:
+      name: ユーザ名
+      email: Eメールアドレス
+      password: パスワード
+      password_confirmation: パスワード確認
+      admin: 管理者権限
+  session:
+    submit: ログイン
+    title:
+      new: ログイン
+    header:
+      signup: サインアップ
+      login: ログイン
+      profile: マイページ
+      logout: ログアウト
   activerecord:
     models:
       task: タスク
@@ -32,3 +69,8 @@ ja:
       task:
         name: タスク名
         content: 内容
+      user:
+        name: ユーザ名
+        email: Eメール
+        password: パスワード
+        password_confirmation: パスワード確認

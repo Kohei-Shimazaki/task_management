@@ -1,0 +1,35 @@
+<%= form_with(model: @user, local: true) do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= form.label :name, t('user.column.name') %><br>
+    <%= form.text_field :name %>
+  </div>
+  <div class="field">
+    <%= form.label :email, t('user.column.email') %><br>
+    <%= form.email_field :email %>
+  </div>
+  <div class="field">
+    <%= form.label :password, t('user.column.password') %><br>
+    <%= form.password_field :password %>
+  </div>
+  <div class="field">
+    <%= form.label :password_confirmation, t('user.column.password_confirmation') %><br>
+    <%= form.password_field :password_confirmation %>
+  </div>
+  <div class="field">
+    <%= form.label :admin, t('user.column.admin') %><br>
+    <%= form.select :admin, [
+                                        [t('admin.not_have_right'), false],
+                                        [t('admin.has_right'), true],
+                                        ] %>
+  </div>
+  <%= form.submit t('admin.submit') %>
+<% end %>

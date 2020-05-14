@@ -10,6 +10,13 @@
 
   <body>
     <div class="flash_message">
+      <% if logged_in? %>
+        <%= link_to t('session.header.profile'), user_path(current_user.id) %>
+        <%= link_to t('session.header.logout'), session_path(current_user.id), method: :delete %>
+      <% else %>
+        <%= link_to t('session.header.signup'), new_user_path %>
+        <%= link_to t('session.header.login'), new_session_path %>
+      <% end %>
       <% flash.each do |key, value| %>
         <%= content_tag(:div, value, class: "#{key}") %>
       <% end %>

@@ -1,7 +1,13 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   before do
-    @task = FactoryBot.create(:task)
+    @user = FactoryBot.create(:user)
+    @task = FactoryBot.create(:task, user: @user)
+    visit new_session_path
+    fill_in 'Eメールアドレス', with: 'sample@example.com'
+    fill_in 'パスワード', with: 'password'
+    click_button 'ログイン'
+    sleep(1)
   end
   describe 'タスク一覧画面' do
     context 'タスクを作成した場合' do
@@ -11,7 +17,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
       context '複数のタスクを作成した場合' do
         before do
-          new_task = FactoryBot.create(:task, name: 'new_name', content: 'new_content', deadline: Time.new(2019,1,1), priority: 0)
+          new_task = FactoryBot.create(:task, name: 'new_name', content: 'new_content', deadline: Time.new(2019,1,1), priority: 0, user: @user)
           visit tasks_path
         end
         it '作成済みのタスクが表示される' do
@@ -30,8 +36,8 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
       context '検索をした場合' do
         before do
-          new_task = FactoryBot.create(:task, name: 'new_name', content: 'new_content', status: '着手中', priority: 0)
-          second_task = FactoryBot.create(:task, name: 'new_second_name', content: 'new_second_content', status: '未着手', priority: 2)
+          new_task = FactoryBot.create(:task, name: 'new_name', content: 'new_content', status: '着手中', priority: 0, user: @user)
+          second_task = FactoryBot.create(:task, name: 'new_second_name', content: 'new_second_content', status: '未着手', priority: 2, user: @user)
           visit tasks_path
         end
         it 'タスク名で検索できる' do

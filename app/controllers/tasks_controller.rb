@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   PER = 8
 
   def index
-    tasks = Task.all
+    tasks = current_user.tasks
     if params[:sort_expired]
       tasks = tasks.order_deadline
     end
@@ -26,7 +26,7 @@ class TasksController < ApplicationController
     @task = Task.new
   end
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       flash[:notice] = "タスクを登録しました！"
       redirect_to tasks_path

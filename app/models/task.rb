@@ -7,4 +7,5 @@ class Task < ApplicationRecord
   scope :order_priority, -> {order(priority: :desc)}
   scope :order_created_at, -> {order(created_at: :desc)}
   enum priority: [:低, :中, :高]
+  belongs_to :user
 end
