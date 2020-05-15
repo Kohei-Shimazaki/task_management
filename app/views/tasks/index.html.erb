@@ -3,6 +3,8 @@
   <%= link_to t('task.link.deadline'), tasks_path(sort_expired: "true") %>
   <%= form_with(scope: :search, url: tasks_path, method: :get, local: true) do |form| %>
     <p>
+      <%= form.label :label_ids, t('task.column.label') %>
+      <%= form.select :label_ids, Label.all.collect { |l| [ l.title, l.id ] }, include_blank: true %>
       <%= form.label :name, t('task.column.name') %>
       <%= form.text_field :name %>
       <%= form.label :status, t('task.column.status') %>

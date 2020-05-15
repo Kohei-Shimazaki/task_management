@@ -12,15 +12,25 @@ class TasksController < ApplicationController
         words.each do |word|
           tasks = tasks.search_like_name(word)
         end
-      end
-      if params[:search][:status].present?
+      elsif params[:search][:status].present?
         tasks = tasks.search_status(params[:search][:status])
-      end
-      if params[:search][:priority].present?
+      elsif params[:search][:priority].present?
         tasks = tasks.order_priority
       end
     end
-    @tasks = tasks.order_created_at.page(params[:page]).per(PER)
+    tasks = tasks.order_created_at
+    if params[:search].present?
+      if params[:search][:label_ids].present?
+        tasks_id = []
+        tasks.each do |task|
+          if task.label_ids.include?(params[:search][:label_ids].to_i)
+            tasks_id.push(task.id)
+          end
+        end
+      end
+      tasks = Task.find(tasks_id)
+    end
+    @tasks = Kaminari.paginate_array(tasks).page(params[:page]).per(PER)
   end
   def new
     @task = Task.new
