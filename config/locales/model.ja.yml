@@ -13,7 +13,9 @@ ja:
       deadline: 終了期限
       status: 状態
       priority: 優先順位
+      label: ラベル
     link:
+      table: 管理
       index: 一覧へ
       new: タスクを登録する
       show: 詳細
@@ -34,6 +36,7 @@ ja:
     show:
       number_of_tasks: タスク数
     link:
+      table: 管理
       new: ユーザ作成へ
       index: ユーザ管理へ
       show: ユーザ詳細へ

@@ -1,0 +1,37 @@
+.color_green {
+  background-color: green;
+  color: white;
+}
+.color_blue {
+  background-color: blue;
+  color: white;
+}
+.color_red {
+  background-color: red;
+  color: white;
+}
+.shape_ellipse {
+  border-radius: 50%;
+}
+.shape_square {
+  border-radius: 10%;
+}
+.shape_arrow {
+  position: relative;
+}
+.shape_arrow::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  right: -11px;
+  top: -4px;
+  border-left: 12px solid green;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+}
+.label_shape {
+  margin: 10px;
+  padding: 1px;
+}

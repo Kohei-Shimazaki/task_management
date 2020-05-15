@@ -17,20 +17,23 @@
       <%= form.submit t('task.search') %>
     </p>
   <% end %>
-  <table class="container" border="2">
+  <table class="container table table-bordered table-hover">
     <tr>
-      <th class="col-md-1">ラベル</th>
+      <th class="col-md-1"><%= t('task.column.label') %></th>
       <th class="col-md-2"><%= t('task.column.name') %></th>
       <th class="col-md-1"><%= t('task.column.status') %></th>
       <th class="col-md-1"><%= t('task.column.priority') %></th>
       <th class="col-md-2"><%= t('task.column.deadline') %></th>
       <th class="col-md-5"><%= t('task.column.content') %></th>
+      <th colspan="3"><%= t('task.link.table') %></th>
     </tr>
     <% @tasks.each do |task| %>
       <tr>
         <td>
           <% task.labels.each do |label| %>
-            <%= label.title %><br>
+            <p class="<%= label_color(label.color)%> <%= label_shape(2)%> label_shape">
+              <%= label.title %>
+            </p>
           <% end %>
         </td>
         <td><%= task.name %></td>
