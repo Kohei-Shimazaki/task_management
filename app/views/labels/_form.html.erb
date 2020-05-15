@@ -12,21 +12,21 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
+    <%= form.label :title, t('label.column.title') %>
     <%= form.text_field :title %>
   </div>
 
   <div class="field">
-    <%= form.label :color %>
+    <%= form.label :color, t('label.column.color') %>
     <%= form.select :color, Label.colors.keys.map {|k| [k, k]} %>
   </div>
 
   <div class="field">
-    <%= form.label :shape %>
+    <%= form.label :shape, t('label.column.shape') %>
     <%= form.select :shape, Label.shapes.keys.map {|k| [k, k]} %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit t('label.submit') %>
   </div>
 <% end %>
