@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   PER = 8
-
+  before_action :set_task, only: [:edit, :update, :show, :destroy]
+  before_action :prohibit_other_user, only: [:edit, :show]
   def index
     tasks = current_user.tasks
     if params[:sort_expired]
@@ -23,7 +24,7 @@ class TasksController < ApplicationController
       if params[:search][:label_ids].present?
         tasks_id = Labeling.where(label_id: params[:search][:label_ids]).pluck(:task_id)
         tasks = Task.find(tasks_id)
-      end    
+      end
     end
     @tasks = Kaminari.paginate_array(tasks).page(params[:page]).per(PER)
   end
@@ -40,13 +41,10 @@ class TasksController < ApplicationController
     end
   end
   def edit
-    @task = Task.find(params[:id])
   end
   def show
-    @task = Task.find(params[:id])
   end
   def update
-    @task = Task.find(params[:id])
     if @task.update(task_params)
       flash[:notice] = "タスクを更新しました！"
       redirect_to tasks_path
@@ -55,12 +53,15 @@ class TasksController < ApplicationController
     end
   end
   def destroy
-    @task = Task.find(params[:id]).destroy
+    @task.destroy
     flash[:notice] = "タスクを削除しました！"
     redirect_to tasks_path
   end
 
   private
+  def set_task
+    @task = Task.find(params[:id])
+  end
   def task_params
     params.require(:task).permit(
                                 :name,
@@ -70,5 +71,10 @@ class TasksController < ApplicationController
                                 :priority,
                                 label_ids: []
                               )
+  end
+  def prohibit_other_user
+    if current_user.id != @task.id
+      redirect_to tasks_path
+    end
   end
 end
