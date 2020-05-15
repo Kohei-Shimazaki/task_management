@@ -4,4 +4,5 @@ class Label < ApplicationRecord
   enum shape: [:楕円, :四角, :矢印]
   has_many :labelings, dependent: :destroy
   has_many :tasks, through: :labelings, source: :task
+  belongs_to :user
 end

@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :tasks, dependent: :delete_all
+  has_many :labels, dependent: :delete_all
 
   private
   def update_ensure_admin

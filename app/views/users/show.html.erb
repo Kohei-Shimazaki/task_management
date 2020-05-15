@@ -10,6 +10,9 @@
     <%= link_to t('task.link.index'), tasks_path %>|
     <%= link_to t('task.link.new'), new_task_path %><br>
     <%= link_to t('label.link.index'), labels_path %>|
-    <%= link_to t('label.link.new'), new_label_path %>
+    <%= link_to t('label.link.new'), new_label_path %><br>
+    <% if current_user.admin %>
+      <%= link_to t('admin.link.index'), admin_users_path %>
+    <% end %>
   </div>
 </div>
