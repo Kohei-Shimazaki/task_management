@@ -31,6 +31,7 @@
 }
 .shape_arrow_green {
   position: relative;
+  white-space: nowrap;
 }
 .shape_arrow_green::before {
   content: '';
@@ -46,6 +47,7 @@
 }
 .shape_arrow_blue {
   position: relative;
+  white-space: nowrap;
 }
 .shape_arrow_blue::before {
   content: '';
@@ -61,6 +63,7 @@
 }
 .shape_arrow_red {
   position: relative;
+  white-space: nowrap;
 }
 .shape_arrow_red::before {
   content: '';
@@ -76,6 +79,7 @@
 }
 .shape_arrow_orange {
   position: relative;
+  white-space: nowrap;
 }
 .shape_arrow_orange::before {
   content: '';

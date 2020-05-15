@@ -3,7 +3,7 @@ class LabelsController < ApplicationController
 
   # GET /labels
   def index
-    @labels = Label.all
+    @labels = current_user.labels
   end
 
   # GET /labels/1
@@ -21,8 +21,7 @@ class LabelsController < ApplicationController
 
   # POST /labels
   def create
-    @label = Label.new(label_params)
-
+    @label = current_user.labels.build(label_params)
     if @label.save
       redirect_to @label, notice: 'Label was successfully created.'
     else

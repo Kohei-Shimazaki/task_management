@@ -34,7 +34,7 @@
       <%= form.select :priority, Task.priorities.keys.map {|k| [k, k]} %>
     </div>
   </div>
-  <% Label.all.each do |label| %>
+  <% current_user.labels.each do |label| %>
     <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
     <%= label.title %>
   <% end %>
