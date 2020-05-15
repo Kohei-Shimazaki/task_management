@@ -21,14 +21,9 @@ class TasksController < ApplicationController
     tasks = tasks.order_created_at
     if params[:search].present?
       if params[:search][:label_ids].present?
-        tasks_id = []
-        tasks.each do |task|
-          if task.label_ids.include?(params[:search][:label_ids].to_i)
-            tasks_id.push(task.id)
-          end
-        end
-      end
-      tasks = Task.find(tasks_id)
+        tasks_id = Labeling.where(label_id: params[:search][:label_ids]).pluck(:task_id)
+        tasks = Task.find(tasks_id)
+      end    
     end
     @tasks = Kaminari.paginate_array(tasks).page(params[:page]).per(PER)
   end

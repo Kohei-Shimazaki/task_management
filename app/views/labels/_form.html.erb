@@ -18,12 +18,12 @@
 
   <div class="field">
     <%= form.label :color %>
-    <%= form.number_field :color %>
+    <%= form.select :color, Label.colors.keys.map {|k| [k, k]} %>
   </div>
 
   <div class="field">
     <%= form.label :shape %>
-    <%= form.number_field :shape %>
+    <%= form.select :shape, Label.shapes.keys.map {|k| [k, k]} %>
   </div>
 
   <div class="actions">

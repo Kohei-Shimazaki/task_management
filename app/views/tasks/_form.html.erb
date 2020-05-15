@@ -29,9 +29,6 @@
                                 [t('task.status.completed'), t('task.status.completed')]
                                 ] %>
     </div>
-    <div class="form-block_add" id="form_add">
-      <span class="btn btn-primary add" title="フォーム追加">+</span>
-    </div>
     <div class="field">
       <%= form.label :priority, t('task.column.priority') %><br>
       <%= form.select :priority, Task.priorities.keys.map {|k| [k, k]} %>

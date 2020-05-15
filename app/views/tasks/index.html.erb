@@ -33,9 +33,11 @@
       <tr>
         <td>
           <% task.labels.each do |label| %>
-            <p class="<%= label_color(label.color)%> <%= label_shape(2)%> label_shape">
+            <div class="border">
+            <p class="<%= label_color(label.color)%> <%=label_shape(label.shape, label.color)%> label_shape">
               <%= label.title %>
             </p>
+            </div>
           <% end %>
         </td>
         <td><%= task.name %></td>

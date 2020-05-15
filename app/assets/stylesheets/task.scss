@@ -5,21 +5,34 @@
 .color_blue {
   background-color: blue;
   color: white;
+  border: blue;
 }
 .color_red {
   background-color: red;
   color: white;
+  border: red;
+}
+.color_orange {
+  background-color: orange;
+  color: white;
+  border: orange;
+}
+.label_shape {
+  font-size: 12px;
+  margin: 10px;
+  padding: 1px;
 }
 .shape_ellipse {
   border-radius: 50%;
+  padding: 5px;
 }
 .shape_square {
   border-radius: 10%;
 }
-.shape_arrow {
+.shape_arrow_green {
   position: relative;
 }
-.shape_arrow::before {
+.shape_arrow_green::before {
   content: '';
   position: absolute;
   display: block;
@@ -31,7 +44,48 @@
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent;
 }
-.label_shape {
-  margin: 10px;
-  padding: 1px;
+.shape_arrow_blue {
+  position: relative;
+}
+.shape_arrow_blue::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  right: -11px;
+  top: -4px;
+  border-left: 12px solid blue;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+}
+.shape_arrow_red {
+  position: relative;
+}
+.shape_arrow_red::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  right: -11px;
+  top: -4px;
+  border-left: 12px solid red;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+}
+.shape_arrow_orange {
+  position: relative;
+}
+.shape_arrow_orange::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  right: -11px;
+  top: -4px;
+  border-left: 12px solid orange;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
 }
