@@ -12,21 +12,24 @@ class LabelsController < ApplicationController
   def create
     @label = current_user.labels.build(label_params)
     if @label.save
-      redirect_to @label, notice: 'Label was successfully created.'
+      flash[:notice] = "ラベルを作成しました！"
+      redirect_to labels_path
     else
       render :new
     end
   end
   def update
     if @label.update(label_params)
-      redirect_to @label, notice: 'Label was successfully updated.'
+      flash[:notice] = "ラベルを編集しました！"
+      redirect_to labels_path
     else
       render :edit
     end
   end
   def destroy
     @label.destroy
-    redirect_to labels_url, notice: 'Label was successfully destroyed.'
+    flash[:notice] = "ラベルを削除しました！"
+    redirect_to labels_url
   end
 
   private
