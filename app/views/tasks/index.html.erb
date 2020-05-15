@@ -17,8 +17,9 @@
       <%= form.submit t('task.search') %>
     </p>
   <% end %>
-  <table class="container">
+  <table class="container" border="2">
     <tr>
+      <th class="col-md-1">ラベル</th>
       <th class="col-md-2"><%= t('task.column.name') %></th>
       <th class="col-md-1"><%= t('task.column.status') %></th>
       <th class="col-md-1"><%= t('task.column.priority') %></th>
@@ -27,6 +28,11 @@
     </tr>
     <% @tasks.each do |task| %>
       <tr>
+        <td>
+          <% task.labels.each do |label| %>
+            <%= label.title %><br>
+          <% end %>
+        </td>
         <td><%= task.name %></td>
         <td><%= task.status %></td>
         <td><%= task.priority %></td>

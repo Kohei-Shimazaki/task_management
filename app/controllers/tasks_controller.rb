@@ -24,7 +24,6 @@ class TasksController < ApplicationController
   end
   def new
     @task = Task.new
-    2.times { @task.labelings.build }
   end
   def create
     @task = current_user.tasks.build(task_params)
@@ -64,6 +63,7 @@ class TasksController < ApplicationController
                                 :deadline,
                                 :status,
                                 :priority,
+                                label_ids: []
                               )
   end
 end

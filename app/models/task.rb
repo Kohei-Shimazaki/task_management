@@ -4,9 +4,8 @@ class Task < ApplicationRecord
   enum priority: [:低, :中, :高]
 
   belongs_to :user
-  has_many :labelings, dependent: :destroy, inverse_of: :task
-  accepts_nested_attributes_for :labelings, allow_destroy: true, reject_if: :all_blank
-  has_many :labels, through: :lagbellings, source: :label
+  has_many :labelings, dependent: :destroy
+  has_many :labels, through: :labelings, source: :label
 
   scope :search_like_name, ->(word) {where("name LIKE ?", "%#{ word }%")}
   scope :search_status, ->(status) {where(status: status)}
