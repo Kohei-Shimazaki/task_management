@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   PER = 8
   before_action :set_task, only: [:edit, :update, :show, :destroy]
-  before_action :prohibit_other_user, only: [:edit, :show]
+  before_action :prohibit_other_user, only: [:edit, :show,]
   def index
     tasks = current_user.tasks
     if params[:sort_expired]
@@ -13,17 +13,24 @@ class TasksController < ApplicationController
         words.each do |word|
           tasks = tasks.search_like_name(word)
         end
-      elsif params[:search][:status].present?
+      end
+      if params[:search][:status].present?
         tasks = tasks.search_status(params[:search][:status])
-      elsif params[:search][:priority].present?
+      end
+      if params[:search][:priority].to_i == 1
         tasks = tasks.order_priority
       end
     end
     tasks = tasks.order_created_at
     if params[:search].present?
       if params[:search][:label_ids].present?
-        tasks_id = Labeling.where(label_id: params[:search][:label_ids]).pluck(:task_id)
-        tasks = Task.find(tasks_id)
+        tasks_clone = []
+        tasks.each do |task|
+          if task.label_ids.include?(params[:search][:label_ids].to_i)
+            tasks_clone.push(task)
+          end
+        end
+        tasks = tasks_clone
       end
     end
     @tasks = Kaminari.paginate_array(tasks).page(params[:page]).per(PER)
@@ -73,7 +80,7 @@ class TasksController < ApplicationController
                               )
   end
   def prohibit_other_user
-    if current_user.id != @task.id
+    if current_user.id != @task.user.id
       redirect_to tasks_path
     end
   end

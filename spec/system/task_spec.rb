@@ -2,6 +2,7 @@ require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   before do
     @user = FactoryBot.create(:user)
+    @label = FactoryBot.create(:label)
     @task = FactoryBot.create(:task, user: @user)
     visit new_session_path
     fill_in 'Eメールアドレス', with: 'sample@example.com'
@@ -37,6 +38,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       context '検索をした場合' do
         before do
           new_task = FactoryBot.create(:task, name: 'new_name', content: 'new_content', status: '着手中', priority: 0, user: @user)
+          new_task.label_ids = [1]
           second_task = FactoryBot.create(:task, name: 'new_second_name', content: 'new_second_content', status: '未着手', priority: 2, user: @user)
           visit tasks_path
         end
@@ -46,7 +48,12 @@ RSpec.describe 'タスク管理機能', type: :system do
           expect(all('table tr').count).to eq 3
         end
         it 'ステータスで検索できる' do
-          select '着手中', from: 'ステータス'
+          select '着手中', from: '状態'
+          click_on '検索'
+          expect(all('table tr').count).to eq 2
+        end
+        it 'ラベルで検索できる' do
+          select 'sample_label', from: 'ラベル'
           click_on '検索'
           expect(all('table tr').count).to eq 2
         end
@@ -58,7 +65,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         end
         it 'タスク名検索、ステータス検索を同時に行える' do
           fill_in 'タスク名', with: 'new'
-          select '未着手', from: 'ステータス'
+          select '未着手', from: '状態'
           click_on '検索'
           expect(all('table tr').count).to eq 2
         end

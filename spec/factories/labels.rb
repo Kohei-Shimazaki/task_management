@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :label do
-    title { "MyString" }
-    color { 1 }
-    shape { 1 }
+    title { "sample_label" }
+    color { "青" }
+    shape { "四角" }
+    user
   end
 end
