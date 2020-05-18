@@ -4,11 +4,11 @@ RSpec.describe Task, type: :model do
   before do
     @user = FactoryBot.create(:user)
   end
-  it 'titleが空ならバリデーションが通らない' do
+  it 'nameが空ならバリデーションが通らない' do
     task = Task.new(content: '失敗テスト', user: @user)
     expect(task).not_to be_valid
   end
-  it 'titleが31文字以上ならバリデーションが通らない' do
+  it 'nameが31文字以上ならバリデーションが通らない' do
     task = Task.new(name: 'a'*31 , content: '失敗テスト', user: @user)
     expect(task).not_to be_valid
   end

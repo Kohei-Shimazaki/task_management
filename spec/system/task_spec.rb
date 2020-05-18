@@ -2,6 +2,7 @@ require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   before do
     @user = FactoryBot.create(:user)
+    @label = FactoryBot.create(:label, user: @user)
     @task = FactoryBot.create(:task, user: @user)
     visit new_session_path
     fill_in 'Eメールアドレス', with: 'sample@example.com'
@@ -13,7 +14,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスクを作成した場合' do
       it '作成済みのタスクが表示される' do
         visit tasks_path
-        expect(page).to have_content 'test_name' && 'test_content'
+        expect(page).to have_content('test_name', 'test_content')
       end
       context '複数のタスクを作成した場合' do
         before do
@@ -21,7 +22,7 @@ RSpec.describe 'タスク管理機能', type: :system do
           visit tasks_path
         end
         it '作成済みのタスクが表示される' do
-          expect(page).to have_content 'test_name' && 'test_content' && 'new_name' && 'new_content'
+          expect(page).to have_content('test_name', 'new_name')
         end
         it 'タスクが作成日時の降順に並んでいる' do
           expect(all('table tr')[1]).to have_content 'new_name'
@@ -36,8 +37,11 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
       context '検索をした場合' do
         before do
+          new_label = FactoryBot.create(:label, id: 2, title: "new_sample", user: @user)
           new_task = FactoryBot.create(:task, name: 'new_name', content: 'new_content', status: '着手中', priority: 0, user: @user)
+          new_task.label_ids = [1]
           second_task = FactoryBot.create(:task, name: 'new_second_name', content: 'new_second_content', status: '未着手', priority: 2, user: @user)
+          second_task.label_ids = [2]
           visit tasks_path
         end
         it 'タスク名で検索できる' do
@@ -46,7 +50,12 @@ RSpec.describe 'タスク管理機能', type: :system do
           expect(all('table tr').count).to eq 3
         end
         it 'ステータスで検索できる' do
-          select '着手中', from: 'ステータス'
+          select '着手中', from: '状態'
+          click_on '検索'
+          expect(all('table tr').count).to eq 2
+        end
+        it 'ラベルで検索できる' do
+          select 'sample_label', from: 'ラベル'
           click_on '検索'
           expect(all('table tr').count).to eq 2
         end
@@ -58,9 +67,16 @@ RSpec.describe 'タスク管理機能', type: :system do
         end
         it 'タスク名検索、ステータス検索を同時に行える' do
           fill_in 'タスク名', with: 'new'
-          select '未着手', from: 'ステータス'
+          select '未着手', from: '状態'
           click_on '検索'
           expect(all('table tr').count).to eq 2
+        end
+        it 'タスク名検索、ステータス検索、ラベル検索を同時に行える' do
+          fill_in 'タスク名', with: 'new'
+          select '未着手', from: '状態'
+          select 'sample_label', from: 'ラベル'
+          click_on '検索'
+          expect(all('table tr').count).to eq 1
         end
       end
     end
@@ -74,7 +90,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in 'タスク名', with: 'task_name'
         fill_in '内容', with: 'task_content'
         click_on '登録'
-        expect(page).to have_content 'task_' && 'name' && 'content'
+        expect(page).to have_content('task_name', 'task_content')
       end
     end
   end
@@ -83,7 +99,7 @@ RSpec.describe 'タスク管理機能', type: :system do
        it '該当タスクの内容が表示されたページに遷移する' do
          visit tasks_path
          click_on '詳細'
-         expect(page).to have_content 'タスク詳細' && 'test_name' && 'test_content'
+         expect(page).to have_content('タスク詳細', 'test_name')
        end
      end
   end

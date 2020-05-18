@@ -1,0 +1,27 @@
+<div class="container">
+  <h1><%= t('label.title.index') %></h1>
+  <table class="container table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th><%= t('label.column.title') %></th>
+        <th><%= t('label.column.color') %></th>
+        <th><%= t('label.column.shape') %></th>
+        <th colspan="2"><%= t('label.link.table') %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @labels.each do |label| %>
+        <tr>
+          <td><%= label.title %></td>
+          <td><%= label.color %></td>
+          <td><%= label.shape %></td>
+          <td><%= link_to t('label.link.edit'), edit_label_path(label) %></td>
+          <td><%= link_to t('label.link.destroy'), label, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br>
+  <%= link_to t('label.link.new'), new_label_path %>
+</div>

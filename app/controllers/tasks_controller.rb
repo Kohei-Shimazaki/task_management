@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   PER = 8
-
+  before_action :set_task, only: [:edit, :update, :show, :destroy]
+  before_action :prohibit_other_user, only: [:edit, :show,]
   def index
     tasks = current_user.tasks
     if params[:sort_expired]
@@ -16,11 +17,23 @@ class TasksController < ApplicationController
       if params[:search][:status].present?
         tasks = tasks.search_status(params[:search][:status])
       end
-      if params[:search][:priority].present?
+      if params[:search][:priority].to_i == 1
         tasks = tasks.order_priority
       end
     end
-    @tasks = tasks.order_created_at.page(params[:page]).per(PER)
+    tasks = tasks.order_created_at
+    if params[:search].present?
+      if params[:search][:label_ids].present?
+        tasks_clone = []
+        tasks.each do |task|
+          if task.label_ids.include?(params[:search][:label_ids].to_i)
+            tasks_clone.push(task)
+          end
+        end
+        tasks = tasks_clone
+      end
+    end
+    @tasks = Kaminari.paginate_array(tasks).page(params[:page]).per(PER)
   end
   def new
     @task = Task.new
@@ -35,13 +48,10 @@ class TasksController < ApplicationController
     end
   end
   def edit
-    @task = Task.find(params[:id])
   end
   def show
-    @task = Task.find(params[:id])
   end
   def update
-    @task = Task.find(params[:id])
     if @task.update(task_params)
       flash[:notice] = "タスクを更新しました！"
       redirect_to tasks_path
@@ -50,12 +60,15 @@ class TasksController < ApplicationController
     end
   end
   def destroy
-    @task = Task.find(params[:id]).destroy
+    @task.destroy
     flash[:notice] = "タスクを削除しました！"
     redirect_to tasks_path
   end
 
   private
+  def set_task
+    @task = Task.find(params[:id])
+  end
   def task_params
     params.require(:task).permit(
                                 :name,
@@ -63,6 +76,12 @@ class TasksController < ApplicationController
                                 :deadline,
                                 :status,
                                 :priority,
+                                label_ids: []
                               )
+  end
+  def prohibit_other_user
+    if current_user.id != @task.user.id
+      redirect_to tasks_path
+    end
   end
 end

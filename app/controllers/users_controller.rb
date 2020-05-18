@@ -7,6 +7,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      @user.labels.build(title: "safe", color: "青", shape: "四角").save
+      @user.labels.build(title: "danger", color: "赤", shape: "矢印").save
       flash[:notice] = "ユーザ登録しました！"
       if logged_in?
         redirect_to admin_users_path

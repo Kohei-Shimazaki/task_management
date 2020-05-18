@@ -1,0 +1,6 @@
+<div class="container">
+  <h1><%= t('label.title.edit') %></h1>
+  <%= render 'form', label: @label %>
+  <%= link_to t('label.link.show'), @label %> |
+  <%= link_to t('label.link.index'), labels_path %>
+</div>

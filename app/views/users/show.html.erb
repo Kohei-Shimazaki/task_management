@@ -1,7 +1,18 @@
-<h1><%= t('user.title.show') %></h1>
-<div class="field">
-  <%= t('user.column.name') %>: <%= @user.name %>
-</div>
-<div class="field">
-  <%= t('user.column.email') %>: <%= @user.email %>
+<div class="container">
+  <h1><%= t('user.title.show') %></h1>
+  <div class="field">
+    <%= t('user.column.name') %>: <%= @user.name %>
+  </div>
+  <div class="field">
+    <%= t('user.column.email') %>: <%= @user.email %>
+  </div>
+  <div>
+    <%= link_to t('task.link.index'), tasks_path %>|
+    <%= link_to t('task.link.new'), new_task_path %><br>
+    <%= link_to t('label.link.index'), labels_path %>|
+    <%= link_to t('label.link.new'), new_label_path %><br>
+    <% if current_user.admin %>
+      <%= link_to t('admin.link.index'), admin_users_path %>
+    <% end %>
+  </div>
 </div>

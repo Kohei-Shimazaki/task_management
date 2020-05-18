@@ -3,6 +3,8 @@
   <%= link_to t('task.link.deadline'), tasks_path(sort_expired: "true") %>
   <%= form_with(scope: :search, url: tasks_path, method: :get, local: true) do |form| %>
     <p>
+      <%= form.label :label_ids, t('task.column.label') %>
+      <%= form.select :label_ids, current_user.labels.collect { |l| [ l.title, l.id ] }, include_blank: true %>
       <%= form.label :name, t('task.column.name') %>
       <%= form.text_field :name %>
       <%= form.label :status, t('task.column.status') %>
@@ -17,16 +19,27 @@
       <%= form.submit t('task.search') %>
     </p>
   <% end %>
-  <table class="container">
+  <table class="container table table-bordered table-hover">
     <tr>
+      <th class="col-md-1"><%= t('task.column.label') %></th>
       <th class="col-md-2"><%= t('task.column.name') %></th>
       <th class="col-md-1"><%= t('task.column.status') %></th>
       <th class="col-md-1"><%= t('task.column.priority') %></th>
       <th class="col-md-2"><%= t('task.column.deadline') %></th>
       <th class="col-md-5"><%= t('task.column.content') %></th>
+      <th colspan="3"><%= t('task.link.table') %></th>
     </tr>
     <% @tasks.each do |task| %>
       <tr>
+        <td>
+          <% task.labels.each do |label| %>
+            <div class="border">
+            <p class="<%= label_color(label.color)%> <%=label_shape(label.shape, label.color)%> label_shape">
+              <%= label.title %>
+            </p>
+            </div>
+          <% end %>
+        </td>
         <td><%= task.name %></td>
         <td><%= task.status %></td>
         <td><%= task.priority %></td>
