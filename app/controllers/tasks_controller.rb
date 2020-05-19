@@ -9,9 +9,7 @@ class TasksController < ApplicationController
     if params[:search].present?
       if params[:search][:name].present?
         words = params[:search][:name].split
-        words.each do |word|
-          tasks = tasks.search_like_name(word)
-        end
+        tasks = words.inject (tasks){|tasks,word| tasks.search_like_name(word) }
       end
       if params[:search][:status].present?
         tasks = tasks.search_status(params[:search][:status])
@@ -34,10 +32,13 @@ class TasksController < ApplicationController
     end
     @tasks = Kaminari.paginate_array(tasks).page(params[:page]).per(PER)
   end
+
   def new
     @task = Task.new
   end
+
   def create
+    @task = current_user.tasks.build(task_params)
     if @task.save
       flash[:notice] = "タスクを登録しました！"
       redirect_to tasks_path
@@ -45,10 +46,13 @@ class TasksController < ApplicationController
       render :new
     end
   end
+
   def edit
   end
+
   def show
   end
+
   def update
     if current_user.tasks.update(task_params)
       flash[:notice] = "タスクを更新しました！"
@@ -57,6 +61,7 @@ class TasksController < ApplicationController
       render :edit
     end
   end
+
   def destroy
     @task.destroy
     flash[:notice] = "タスクを削除しました！"
@@ -65,7 +70,7 @@ class TasksController < ApplicationController
 
   private
   def set_task
-    if current_user.tasks.pluck(:id).include?(params[:id])
+    if current_user.tasks.pluck(:id).include?(params[:id].to_i)
       @task = current_user.tasks.find(params[:id])
     else
       redirect_to tasks_path
