@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   PER = 8
-  before_action :set_task, only: [:edit, :update, :show, :destroy]
-  before_action :prohibit_other_user, only: [:edit, :show,]
+  before_action :set_task, only: %i[edit update show destroy]
+  before_action :prohibit_other_user, only: %i[edit show]
   def index
     tasks = current_user.tasks
     if params[:sort_expired]

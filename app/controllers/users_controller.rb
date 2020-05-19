@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_user, only: [:new, :create, :update]
+  skip_before_action :authenticate_user, only: %i[new create update]
   before_action :prohibit_signup, only: :new
   def new
     @user = User.new
