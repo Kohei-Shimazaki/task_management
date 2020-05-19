@@ -1,7 +1,6 @@
 class TasksController < ApplicationController
   PER = 8
   before_action :set_task, only: %i[edit update show destroy]
-  before_action :prohibit_other_user, only: %i[edit show]
   def index
     tasks = current_user.tasks
     if params[:sort_expired]
@@ -39,7 +38,6 @@ class TasksController < ApplicationController
     @task = Task.new
   end
   def create
-    @task = current_user.tasks.build(task_params)
     if @task.save
       flash[:notice] = "タスクを登録しました！"
       redirect_to tasks_path
@@ -52,7 +50,7 @@ class TasksController < ApplicationController
   def show
   end
   def update
-    if @task.update(task_params)
+    if current_user.tasks.update(task_params)
       flash[:notice] = "タスクを更新しました！"
       redirect_to tasks_path
     else
@@ -67,7 +65,11 @@ class TasksController < ApplicationController
 
   private
   def set_task
-    @task = Task.find(params[:id])
+    if current_user.tasks.pluck(:id).include?(params[:id])
+      @task = current_user.tasks.find(params[:id])
+    else
+      redirect_to tasks_path
+    end
   end
   def task_params
     params.require(:task).permit(
@@ -78,10 +80,5 @@ class TasksController < ApplicationController
                                 :priority,
                                 label_ids: []
                               )
-  end
-  def prohibit_other_user
-    if current_user.id != @task.user.id
-      redirect_to tasks_path
-    end
   end
 end
