@@ -5,7 +5,7 @@ class Task < ApplicationRecord
 
   validates :name, presence: true, length: {maximum: 30}
   validates :content, presence: true
-  enum priority: [:低, :中, :高]
+  enum priority: %i[low middle high]
 
   scope :search_like_name, ->(word) {where("name LIKE ?", "%#{ word }%")}
   scope :search_status, ->(status) {where(status: status)}

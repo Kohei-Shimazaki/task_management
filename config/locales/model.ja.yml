@@ -90,8 +90,25 @@ ja:
       task:
         name: タスク名
         content: 内容
+      task/priority:
+        low: 低
+        middle: 中
+        high: 高
       user:
         name: ユーザ名
         email: Eメール
         password: パスワード
         password_confirmation: パスワード確認
+      label:
+        title: ラベル名
+        color: 色
+        shape: 形
+      label/color:
+        green: 緑
+        blue: 青
+        red: 赤
+        orange: オレンジ
+      label/shape:
+        ellipse: 楕円
+        square: 四角
+        arrow: 矢印

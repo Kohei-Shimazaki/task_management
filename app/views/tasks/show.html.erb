@@ -7,7 +7,7 @@
     <%= t('task.column.status') %>： <%= @task.status %>
   </div>
   <div class="priority">
-    <%= t('task.column.priority') %>： <%= @task.priority %>
+    <%= t('task.column.priority') %>： <%= @task.human_attribute_enum(:priority) %>
   </div>
   <div class="deadline">
     <%= t('task.column.deadline') %>： <%= l @task.deadline, format: :long %>
