@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   skip_before_action :authenticate_user
   def new
+    redirect_to user_path(current_user.id) if logged_in?
   end
   def create
     user = User.find_by(email: params[:session][:email].downcase)

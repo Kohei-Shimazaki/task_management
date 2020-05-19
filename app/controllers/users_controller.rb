@@ -7,8 +7,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      @user.labels.build(title: "safe", color: "青", shape: "四角").save
-      @user.labels.build(title: "danger", color: "赤", shape: "矢印").save
+      @user.labels.build(title: "safe", color: "blue", shape: "square").save
+      @user.labels.build(title: "danger", color: "red", shape: "arrow").save
       flash[:notice] = "ユーザ登録しました！"
       if logged_in?
         redirect_to admin_users_path
@@ -56,8 +56,6 @@ class UsersController < ApplicationController
     end
   end
   def prohibit_signup
-    if logged_in?
-      redirect_to user_path(current_user.id)
-    end
+    redirect_to user_path(current_user.id) if logged_in?
   end
 end

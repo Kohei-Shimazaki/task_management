@@ -16,14 +16,13 @@ RSpec.describe 'ユーザ管理機能', type: :system do
     end
     context 'ユーザがログインしている場合' do
       before do
-        fill_in 'ユーザ名', with: 'user_name'
-        fill_in 'Eメールアドレス', with: 'user@gmail.com'
+        fill_in 'ユーザ名', with: 'new_name'
+        fill_in 'Eメールアドレス', with: 'new@gmail.com'
         fill_in 'パスワード', with: 'password'
         fill_in 'パスワード確認', with: 'password'
         click_on '登録'
       end
       it 'ユーザ登録画面にアクセスできない' do
-        visit new_user_path
         expect(page).to have_content 'マイページ'
       end
     end
