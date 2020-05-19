@@ -1,8 +1,8 @@
 require 'rails_helper'
 RSpec.describe 'ラベル管理機能', type: :system do
   before do
-    @user = FactoryBot.create(:user)
-    @label = FactoryBot.create(:label, user: @user)
+    @user = create(:user)
+    @label = create(:label, user: @user)
     visit new_session_path
     fill_in 'Eメールアドレス', with: 'sample@example.com'
     fill_in 'パスワード', with: 'password'

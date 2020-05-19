@@ -33,7 +33,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
     end
     context 'アカウントがあり、ログインしていない場合' do
       before do
-        user = FactoryBot.create(:user)
+        user = create(:user)
       end
       it 'ログインできる' do
         fill_in 'Eメールアドレス', with: 'sample@example.com'
@@ -45,8 +45,8 @@ RSpec.describe 'ユーザ管理機能', type: :system do
     end
     context 'アカウントがあり、ログインしている場合' do
       before do
-        user = FactoryBot.create(:user)
-        other_user = FactoryBot.create(:user, id: 3, email: 'other@example.com')
+        user = create(:user)
+        other_user = create(:user, id: 3, email: 'other@example.com')
         fill_in 'Eメールアドレス', with: 'sample@example.com'
         fill_in 'パスワード', with: 'password'
         click_button 'ログイン'
@@ -76,8 +76,8 @@ RSpec.describe 'ユーザ管理機能', type: :system do
   describe '管理画面' do
     context '管理者としてログインしている場合' do
       before do
-        admin = FactoryBot.create(:admin_user)
-        user = FactoryBot.create(:user)
+        admin = create(:admin_user)
+        user = create(:user)
         visit new_session_path
         fill_in 'Eメールアドレス', with: 'admin@example.com'
         fill_in 'パスワード', with: 'password'
@@ -124,7 +124,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
     end
     context '管理者権限のないユーザとしてログインしている場合' do
       before do
-        user = FactoryBot.create(:user)
+        user = create(:user)
         visit new_session_path
         fill_in 'Eメールアドレス', with: 'sample@example.com'
         fill_in 'パスワード', with: 'password'

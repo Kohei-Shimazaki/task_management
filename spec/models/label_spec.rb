@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Label, type: :model do
   before do
-    @user = FactoryBot.create(:user)
+    @user = create(:user)
   end
   it 'titleが空ならバリデーションが通らない' do
     label = Label.new(color: 'blue', shape: 'arrow', user: @user)
