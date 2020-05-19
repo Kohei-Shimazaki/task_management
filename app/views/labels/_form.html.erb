@@ -18,12 +18,12 @@
 
   <div class="field">
     <%= form.label :color, t('label.column.color') %>
-    <%= form.select :color, Label.colors.keys.map {|k| [k, k]} %>
+    <%= form.select :color, Label.enum_options_for_select(:color) %>
   </div>
 
   <div class="field">
     <%= form.label :shape, t('label.column.shape') %>
-    <%= form.select :shape, Label.shapes.keys.map {|k| [k, k]} %>
+    <%= form.select :shape, Label.enum_options_for_select(:shape) %>
   </div>
 
   <div class="actions">

@@ -1,28 +1,28 @@
 module LabelsHelper
-  def label_color(color)
-    if color == "緑"
+  def label_color(label)
+    if label.green?
       "color_green"
-    elsif color == "青"
+    elsif label.blue?
       "color_blue"
-    elsif color == "赤"
+    elsif label.red?
       "color_red"
-    elsif color == "オレンジ"
+    elsif label.orange?
       "color_orange"
     end
   end
-  def label_shape(shape, color)
-    if shape == '楕円'
+  def label_shape(label)
+    if label.ellipse?
       "shape_ellipse"
-    elsif shape == '四角'
+    elsif label.square?
       "shape_square"
-    elsif shape == '矢印'
-      if color == "緑"
+    elsif label.arrow?
+      if label.green?
         "shape_arrow_green"
-      elsif color == "青"
+      elsif label.blue?
         "shape_arrow_blue"
-      elsif color == "赤"
+      elsif label.red?
         "shape_arrow_red"
-      elsif color == "オレンジ"
+      elsif label.orange?
         "shape_arrow_orange"
       end
     end

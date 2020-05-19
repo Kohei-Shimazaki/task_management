@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Task, type: :model do
   before do
-    @user = FactoryBot.create(:user)
+    @user = create(:user)
   end
   it 'nameが空ならバリデーションが通らない' do
     task = Task.new(content: '失敗テスト', user: @user)

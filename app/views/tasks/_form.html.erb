@@ -31,7 +31,7 @@
     </div>
     <div class="field">
       <%= form.label :priority, t('task.column.priority') %><br>
-      <%= form.select :priority, Task.priorities.keys.map {|k| [k, k]} %>
+      <%= form.select :priority, Task.enum_options_for_select(:priority) %>
     </div>
   </div>
   <% current_user.labels.each do |label| %>

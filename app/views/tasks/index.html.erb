@@ -34,7 +34,7 @@
         <td>
           <% task.labels.each do |label| %>
             <div class="border">
-            <p class="<%= label_color(label.color)%> <%=label_shape(label.shape, label.color)%> label_shape">
+            <p class="<%= label_color(label)%> <%=label_shape(label)%> label_shape">
               <%= label.title %>
             </p>
             </div>
@@ -42,7 +42,7 @@
         </td>
         <td><%= task.name %></td>
         <td><%= task.status %></td>
-        <td><%= task.priority %></td>
+        <td><%= task.human_attribute_enum(:priority) %></td>
         <td><%= l task.deadline, format: :long %></td>
         <td><%= task.content %></td>
         <td><%= link_to t('task.link.show'), task_path(task.id) %></td>

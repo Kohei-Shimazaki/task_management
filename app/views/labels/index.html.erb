@@ -14,8 +14,8 @@
       <% @labels.each do |label| %>
         <tr>
           <td><%= label.title %></td>
-          <td><%= label.color %></td>
-          <td><%= label.shape %></td>
+          <td><%= label.human_attribute_enum(:color) %></td>
+          <td><%= label.human_attribute_enum(:shape) %></td>
           <td><%= link_to t('label.link.edit'), edit_label_path(label) %></td>
           <td><%= link_to t('label.link.destroy'), label, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>

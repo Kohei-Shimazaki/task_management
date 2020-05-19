@@ -1,9 +1,9 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   before do
-    @user = FactoryBot.create(:user)
-    @label = FactoryBot.create(:label, user: @user)
-    @task = FactoryBot.create(:task, user: @user)
+    @user = create(:user)
+    @label = create(:label, user: @user)
+    @task = create(:task, user: @user)
     visit new_session_path
     fill_in 'Eメールアドレス', with: 'sample@example.com'
     fill_in 'パスワード', with: 'password'
@@ -18,7 +18,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
       context '複数のタスクを作成した場合' do
         before do
-          new_task = FactoryBot.create(:task, name: 'new_name', content: 'new_content', deadline: Time.new(2019,1,1), priority: 0, user: @user)
+          new_task = create(:task, name: 'new_name', content: 'new_content', deadline: Time.new(2019,1,1), priority: 0, user: @user)
           visit tasks_path
         end
         it '作成済みのタスクが表示される' do
@@ -37,10 +37,10 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
       context '検索をした場合' do
         before do
-          new_label = FactoryBot.create(:label, id: 2, title: "new_sample", user: @user)
-          new_task = FactoryBot.create(:task, name: 'new_name', content: 'new_content', status: '着手中', priority: 0, user: @user)
+          new_label = create(:label, id: 2, title: "new_sample", user: @user)
+          new_task = create(:task, name: 'new_name', content: 'new_content', status: '着手中', priority: 0, user: @user)
           new_task.label_ids = [1]
-          second_task = FactoryBot.create(:task, name: 'new_second_name', content: 'new_second_content', status: '未着手', priority: 2, user: @user)
+          second_task = create(:task, name: 'new_second_name', content: 'new_second_content', status: '未着手', priority: 2, user: @user)
           second_task.label_ids = [2]
           visit tasks_path
         end
