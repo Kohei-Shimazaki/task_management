@@ -1,35 +1,18 @@
 class TasksController < ApplicationController
   PER = 8
   before_action :set_task, only: %i[edit update show destroy]
+
   def index
     tasks = current_user.tasks
-    if params[:sort_expired]
-      tasks = tasks.order_deadline
+    tasks = tasks.order_deadline if params[:sort_expired]
+    if params.dig(:search, :name).present?
+      words = params.dig(:search, :name).split
+      tasks = words.inject (tasks){|tasks,word| tasks.search_like_name(word) }
     end
-    if params[:search].present?
-      if params[:search][:name].present?
-        words = params[:search][:name].split
-        tasks = words.inject (tasks){|tasks,word| tasks.search_like_name(word) }
-      end
-      if params[:search][:status].present?
-        tasks = tasks.search_status(params[:search][:status])
-      end
-      if params[:search][:priority].to_i == 1
-        tasks = tasks.order_priority
-      end
-    end
+    tasks = tasks.search_status(params.dig(:search, :status)) if params.dig(:search, :status).present?
+    tasks = tasks.order_priority if params.dig(:search, :priority).to_i == 1
     tasks = tasks.order_created_at
-    if params[:search].present?
-      if params[:search][:label_ids].present?
-        tasks_clone = []
-        tasks.each do |task|
-          if task.label_ids.include?(params[:search][:label_ids].to_i)
-            tasks_clone.push(task)
-          end
-        end
-        tasks = tasks_clone
-      end
-    end
+    tasks = tasks.inject ([]){|tasks,task| tasks.push(task) if task.label_ids.include?(params.dig(:search, :label_ids).to_i); tasks} if params.dig(:search, :label_ids).present?
     @tasks = Kaminari.paginate_array(tasks).page(params[:page]).per(PER)
   end
 
@@ -54,7 +37,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    if current_user.tasks.update(task_params)
+    if @task.update(task_params)
       flash[:notice] = "タスクを更新しました！"
       redirect_to tasks_path
     else
@@ -77,13 +60,11 @@ class TasksController < ApplicationController
     end
   end
   def task_params
-    params.require(:task).permit(
-                                :name,
-                                :content,
-                                :deadline,
-                                :status,
-                                :priority,
-                                label_ids: []
-                              )
+    params.require(:task).permit(:name,
+                                 :content,
+                                 :deadline,
+                                 :status,
+                                 :priority,
+                                 label_ids: [] )
   end
 end
