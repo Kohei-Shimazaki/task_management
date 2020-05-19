@@ -13,9 +13,9 @@ class User < ApplicationRecord
 
   private
   def update_ensure_admin
-    throw(:abort) if self.admin == false && User.where(admin: true).count == 1
+    throw(:abort) if self.admin == false && User.where(admin: true).one?
   end
   def destroy_ensure_admin
-    throw(:abort) if self.admin == true && User.where(admin: true).count == 1
+    throw(:abort) if self.admin == true && User.where(admin: true).one?
   end
 end
