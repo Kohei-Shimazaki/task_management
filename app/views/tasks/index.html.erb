@@ -41,7 +41,7 @@
           <% end %>
         </td>
         <td><%= task.name %></td>
-        <td><%= task.status %></td>
+        <td class="status"><%= task.status %></td>
         <td><%= task.human_attribute_enum(:priority) %></td>
         <td><%= l task.deadline, format: :long %></td>
         <td><%= task.content %></td>
