@@ -12,4 +12,6 @@ class Task < ApplicationRecord
   scope :order_deadline, -> {order(deadline: :desc)}
   scope :order_priority, -> {order(priority: :desc)}
   scope :order_created_at, -> {order(created_at: :desc)}
+  scope :close_to_deadline, -> (from, to) {where(deadline: from..to)}
+  scope :status_not_completed, -> {where.not(status: "完了")}
 end

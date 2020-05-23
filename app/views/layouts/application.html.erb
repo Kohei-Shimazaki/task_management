@@ -12,6 +12,9 @@
     <% if logged_in? %>
       <%= link_to t('session.header.profile'), user_path(current_user.id) %>
       <%= link_to t('session.header.logout'), session_path(current_user.id), method: :delete %>
+      <% if current_user.tasks.select{|task| (task.deadline - Time.current) / (60 * 60 * 24) <= 3 && task.status != t('task.status.completed')}.present? %>
+        <%= link_to "終了期限間近(3日以内)なタスクがあります！", close_to_deadline_tasks_path %>
+      <% end %>
     <% else %>
       <%= link_to t('session.header.signup'), new_user_path %>
       <%= link_to t('session.header.login'), new_session_path %>

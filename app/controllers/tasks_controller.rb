@@ -16,6 +16,12 @@ class TasksController < ApplicationController
     @tasks = Kaminari.paginate_array(tasks).page(params[:page]).per(PER)
   end
 
+  def close_to_deadline
+    tasks = current_user.tasks.close_to_deadline(Time.current, Time.current + (3 * 60 * 60 * 24))
+    tasks = tasks.status_not_completed
+    @tasks = tasks.order_created_at
+  end
+
   def new
     @task = Task.new
   end
