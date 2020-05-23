@@ -95,12 +95,36 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
   describe 'タスク詳細画面' do
-     context '任意のタスク詳細画面に遷移した場合' do
-       it '該当タスクの内容が表示されたページに遷移する' do
-         visit tasks_path
-         click_on '詳細'
-         expect(page).to have_content('タスク詳細', 'test_name')
-       end
-     end
+    context '任意のタスク詳細画面に遷移した場合' do
+      it '該当タスクの内容が表示されたページに遷移する' do
+        visit tasks_path
+        click_on '詳細'
+        expect(page).to have_content('タスク詳細', 'test_name')
+      end
+    end
+  end
+  describe '終了期限間近なタスク画面' do
+    context '終了期限間近なタスク(3日以内)がない場合' do
+      it 'テーブルにデータがない' do
+        visit close_to_deadline_tasks_path
+        expect(all('table tr').count).to eq 1
+      end
+    end
+    context '終了期限間近なタスク(3日以内)がある場合' do
+      before do
+        click_on 'ログアウト'
+        sleep(1)
+        task1 = create(:task, deadline: Time.current + 3 * 60 * 60 * 24, user: @user)
+        fill_in 'Eメールアドレス', with: 'sample@example.com'
+        fill_in 'パスワード', with: 'password'
+        click_button 'ログイン'
+        sleep(1)
+      end
+      it 'リンクを押してページ遷移でき、テーブルにデータがある' do
+        click_on '終了期限間近(3日以内)なタスクがあります！'
+        sleep(1)
+        expect(all('table tr').count).to eq 2
+      end
+    end
   end
 end
